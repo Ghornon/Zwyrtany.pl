@@ -1,22 +1,4 @@
-<?php
-
-$path = "gallery/gallery.json";
-
-$myfile = fopen($path, "r");
-
-$gallery = json_decode(fread($myfile, filesize($path)));
-
-fclose($myfile);
-
-$category = NULL;
-
-if (isset($_GET['category'])) {
-
-    $category = $_GET['category'];
-
-};
-
-?>
+<?php require_once 'scripts/gallery.php' ?>
 
 <section id="gallery">
 
@@ -26,20 +8,17 @@ if (isset($_GET['category'])) {
 
             <h1>Galeria</h1>
 
-           <?php
+            <ul class="nav">
 
-            for ($i = 0; $i < sizeof($gallery->categories); $i++) {
+                <?php for ($i = 0; $i < sizeof($gallery->categories); $i++) { ?>
 
+                    <li>
+                        <a href="?page=gallery&category=<?php echo $gallery->categories[$i]; ?>" class="btn-categories <?php if ($category == $gallery->categories[$i]) echo " active" ?>" data-category="<?php echo $gallery->categories[$i]; ?>"><?php echo $gallery->categories[$i]; ?></a>
+                    </li>
                 
-            ?>
+                <?php } ?>
 
-                <a href="?page=gallery&category=<?php echo $gallery->categories[$i]; ?>" class="btn-categories" data-category="<?php echo $gallery->categories[$i]; ?>"><?php echo $gallery->categories[$i]; ?></a>
-                
-            <?php
-
-            }
-
-           ?>
+            </ul>
 
         </header>
 

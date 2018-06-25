@@ -496,8 +496,44 @@ body {
     #grid {
         width: 100%;
         position: relative;
+    }
 
-        
+    .header {
+        display: flex;
+        justify-content: space-between;
+        padding: 0 10px;
+        margin-top: 50px;
+
+        h1 {
+            font-size: 26px;
+        }
+
+        .nav {
+            display: flex;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+
+            .btn-categories {
+                display: block;
+                height: 40px;
+                line-height: 38px;
+                padding: 0 20px;
+                background: #fff;
+                border: 1px solid $mediumgray;
+                color: $darkgray;
+                font-size: 14px;
+                text-decoration: none;
+                margin-left: 15px;
+                border-radius: 20px;
+
+                &.active {
+                    background: $aqua;
+                    border: 1px solid $aqua;
+                    color: #fff;
+                }
+            }
+        }
     }
 
     .item {
@@ -544,8 +580,6 @@ body {
             opacity: 1;
         }
     }
-
-
 }
 
 /*======================================*/
@@ -654,7 +688,23 @@ body {
         }
     }
 
-    #gallery .item {
-        width: 100%;
+    #gallery {
+
+        .header {
+            flex-direction: column;
+            text-align: center;
+
+            .nav {
+                flex-direction: column;
+    
+                .btn-categories {
+                    margin: 5px;
+                }
+            }
+        }
+
+        .item {
+            width: 100%;
+        }
     }
 }

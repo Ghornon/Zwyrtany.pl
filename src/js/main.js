@@ -33,7 +33,7 @@ const renderGrid = () => {
 		for (let i = 0; i < items.length; i++) {
 
 			items[i].style.position = 'absolute';
-
+			
 			if (i == 0) {
 
 				items[i].style.top = '0px';

@@ -1,3 +1,5 @@
+<?php require_once 'scripts/gallery.php' ?>
+
 <aside id="sidebar">
 
     <nav class="hamburger">
@@ -25,19 +27,19 @@
                     <i class="fa fa-chevron-down" aria-hidden="true"></i>
                 </a>
                 <ul class="sub-menu">
-                    <li>
-                        <a href="?page=gallery#lorem">Lorem</a>
-                    </li>
-                    <li>
-                        <a href="?page=gallery#ipsum">Ipsum</a>
-                    </li>
-                    <li>
-                        <a href="?page=gallery#Corporis">Corporis</a>
-                    </li>
+                    
+                    <?php for ($i = 0; $i < sizeof($gallery->categories); $i++) { ?>
+
+                        <li>
+                            <a href="?page=gallery&category=<?php echo $gallery->categories[$i]; ?>"><?php echo $gallery->categories[$i]; ?></a>
+                        </li>
+
+                    <?php } ?>
+
                 </ul>
             </li>
             <li>
-                <a href="?page=page">O nas</a>
+                <a href="?page=about">O nas</a>
             </li>
             <li>
                 <a href="?page=contact">Kontakt</a>

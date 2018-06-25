@@ -34,7 +34,10 @@ if (isset($_GET['page'])) {
 
             <?php
 
-                require_once $page;
+                if (file_exists($page))
+                    require_once $page;
+                else 
+                    require_once $templates . '404.php';
 
             ?>
 
