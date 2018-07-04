@@ -1,12 +1,5 @@
 <?php
 
-$templates = './templates/';
-$page = $templates . 'home.php';
-
-if (isset($_GET['page'])) {
-    $page = $templates . $_GET['page'] . '.php';
-}
-
 $target = 'banner';
 $action = 'add';
 
@@ -29,84 +22,127 @@ if (isset($_GET['action']))
     <title>Zwyrtany - panel sterowania</title>
 </head>
 
-<body>
+<body class="dashboard">
 
-    <main id="dashboard">
-    
-        <?php 
+    <div class="wrapper">
 
-            if (isset($_SESSION['username'])) {
+        <input type="checkbox" id="btn-sidebar" name="btn-sidebar">
 
-                require_once 'templates/dashboard/signin.php'; 
+        <aside id="sidebar" class="dashboard">
 
-            } else {
+            <nav class="hamburger">
+                <label for="btn-sidebar">
+                    <i class="fa fa-times" aria-hidden="true"></i>
+                </label>
+            </nav>
 
-        ?>
+            <nav id="dashboard-nav">
 
-        
-        <nav id="menu">
-        
-            <ul class="nav">
-                <li <?php if ($target == 'banner') echo 'class="active"'; ?>><a href="?target=banner"><i class="fa fa-header" aria-hidden="true"></i></a></li>
-                <li <?php if ($target == 'page') echo 'class="active"'; ?>><a href="?target=page"><i class="fa fa-thumb-tack" aria-hidden="true"></i></a></li>
-                <li <?php if ($target == 'post') echo 'class="active"'; ?>><a href="?target=post"><i class="fa fa-file-text" aria-hidden="true"></i></a></li>
-                <li <?php if ($target == 'gallery') echo 'class="active"'; ?>><a href="?target=gallery"><i class="fa fa-picture-o" aria-hidden="true"></i></a></li>
-                <li <?php if ($target == 'sidebar') echo 'class="active"'; ?>><a href="?target=sidebar"><i class="fa fa-ellipsis-v" aria-hidden="true"></i></a></li>
-            </ul>
-
-        </nav>
-
-        <section id="panel">
-         
-            <nav class="nav-bar">
-                
                 <ul class="nav">
-                    <li <?php if ($action == 'add') echo 'class="active"'; ?>><a href="?target=<?php echo $target; ?>&action=add"><i class="fa fa-plus"></i> Dodaj</a></li>
-                    <li <?php if ($action == 'edit') echo 'class="active"'; ?>><a href="?target=<?php echo $target; ?>&action=edit"><i class="fa fa-edit"></i> Modyfikuj</a></li>
-                    <li <?php if ($action == 'delete') echo 'class="active"'; ?>><a href="?target=<?php echo $target; ?>&action=delete"><i class="fa fa-minus"></i> Usuń</a></li>
+                    <li>
+                        <i class="fa fa-bars" aria-hidden="true"></i>Menu:
+                    </li>
+                    <li <?php if ($target == 'banner') echo 'class="active"'; ?>>
+                        <a href="?target=banner"><i class="fa fa-header" aria-hidden="true"></i>Baner</a>
+                    </li>
+                    <li <?php if ($target == 'blog') echo 'class="active"'; ?>>
+                        <a href="?target=blog"><i class="fa fa-file-text" aria-hidden="true"></i>Blog</a>
+                    </li>
+                    <li <?php if ($target == 'page') echo 'class="active"'; ?>>
+                        <a href="?target=page"><i class="fa fa-thumb-tack" aria-hidden="true"></i>Strony</a>
+                    </li>
+                    <li <?php if ($target == 'gallery') echo 'class="active"'; ?>>
+                        <a href="?target=gallery"><i class="fa fa-picture-o" aria-hidden="true"></i>Galeria</a>
+                    </li>
                 </ul>
 
             </nav>
+            <a href="?action=add" class="btn-new"><i class="fa fa-plus" aria-hidden="true"></i>Dodaj nowy</a>
 
-            <header class="header">
+        </aside>
+
+        <main id="main">
+
+            <nav class="hamburger"><label for="btn-sidebar"><i class="fa fa-bars" aria-hidden="true"></i></label></nav>
+
+            <section id="panels">
+
+                    <article class="panel post">
+
+                        <nav class="panel-nav">
+                            <h1 class="title"><i class="fa fa-file-text" aria-hidden="true"></i>Lorem, ipsum.</h1>
+                            <ul class="nav">
+                                <li><a href=""><i class="fa fa-eye" aria-hidden="true"></i></a></li>
+                                <li><a href=""><i class="fa fa-pencil" aria-hidden="true"></i></a></li>
+                                <li><a href=""><i class="fa fa-trash" aria-hidden="true"></i></a></li>
+                            </ul>
+                        </nav>
+                        
+                        <form action="action.php?target=<?php echo $target; ?>&action=<?php echo $action; ?>" method="post">
+
+                            <ul class="options">
+                                <li><i class="fa fa-cogs" aria-hidden="true"></i>Opcje:</li>
+                                <li>
+                                    <p><i class="fa fa-picture-o" aria-hidden="true"></i> Obrazek wyróżniający:</p>
+                                    <input type="checkbox" id="img-slider" name="img-slide">
+                                    <label for="img-slider">Prześlij obraz na serwer <span class="slider"></span></label>
+
+                                    <fieldset>
+
+                                        <?php 
+                                                        
+                                        $dir    = './gallery/';
+                                        $img = scandir($dir);
+
+                                        ?>
+
+                                        <?php for ($i = 2; $i < sizeof($img); $i++): ?>
+
+                                        <input type="radio" name="img" id="img-<?php echo $i; ?>" value="<?php echo $dir . $img[$i]; ?>">
+                                        
+                                        <label for="img-<?php echo $i; ?>">
+                                            <img src="<?php echo $dir . $img[$i]; ?>" alt="<?php echo $img[$i]; ?>">
+                                        </label>
+
+                                        <?php endfor; ?>
+
+                                    </fieldset>
+
+                                    <label for="newfile"><i class="fa fa-cloud-upload" aria-hidden="true"></i>Prześlij</label>
+                                    <input type="file" name="newfile" id="newfile" accept="image/*">
+                                </li>
+                                <li>
+                                    <label for="title"><i class="fa fa-header" aria-hidden="true"></i>Tytuł:</label>
+                                    <input type="text" name="title" id="title">
+                                </li>
+                                <li>
+                                    <label for="date"><i class="fa fa-calendar-o" aria-hidden="true"></i>Data:</label>
+                                    <input type="date" name="date" id="date"=>
+                                </li>
+                            </ul>
+
+                            <div class="content">
+                                <label for="content">Wpis:</label>
+                                <textarea name="content" id="content" cols="30" rows="10"></textarea>
+
+                                <button type="submit">Zatwierdź</button>
+                            </div>
+
+                        </form>
+
+                    </article>
+
+            </section>
+
+            <footer id="footer">
+
+                <a href=".">Zwyrtany.pl </a> 2018 &copy; All rights reserved!
             
-                <h1><?php echo $target; ?></h1>
+            </footer>
 
-            </header>
+        </main>
 
-            <div class="form">
-            
-                <form action="" method="post">
-
-                    <label for="img">Obrazek wyróżniający:</label>
-                    <input type="file" name="img" accept="image/*">
-
-                    <label for="date">Data:</label>
-                    <input type="date" name="date" id="date"=>
-
-                    <label for="date">Tytuł:</label>
-                    <input type="text" name="title" id="title">
-
-                    <label for="content">Wpis:</label>
-                    <textarea name="content" id="content" cols="30" rows="10"></textarea>
-
-                    <button type="submit">Zatwierdź</button>
-
-                </form>
-
-            </div>
-
-        </section>
-
-        <?php
-
-            }
-
-        ?>
-
-    </main>
-    
-    <script src="assets/bundle.js"></script>
+    </div>
 
 </body>
 

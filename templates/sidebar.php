@@ -20,29 +20,29 @@
 
         <ul class="nav">
             <li>
-                <a href="?page=home">Strona główna</a>
+                <a href=".">Strona główna</a>
             </li>
             <li>
-                <a href="?page=gallery">Galeria
+                <a href="index.php?page=gallery">Galeria
                     <i class="fa fa-chevron-down" aria-hidden="true"></i>
                 </a>
                 <ul class="sub-menu">
                     
-                    <?php for ($i = 0; $i < sizeof($gallery->categories); $i++) { ?>
+                    <?php for ($i = 0; $i < sizeof($gallery->categories); $i++): ?>
 
                         <li>
-                            <a href="?page=gallery&category=<?php echo $gallery->categories[$i]; ?>"><?php echo $gallery->categories[$i]; ?></a>
+                            <a href="index.php?page=gallery&category=<?php echo $gallery->categories[$i]; ?>"><?php echo $gallery->categories[$i]; ?></a>
                         </li>
 
-                    <?php } ?>
+                    <?php endfor; ?>
 
                 </ul>
             </li>
             <li>
-                <a href="?page=about">O nas</a>
+                <a href="o-nas">O nas</a>
             </li>
             <li>
-                <a href="?page=contact">Kontakt</a>
+                <a href="kontakt">Kontakt</a>
             </li>
         </ul>
 

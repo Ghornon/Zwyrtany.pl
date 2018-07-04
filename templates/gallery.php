@@ -9,8 +9,18 @@
             <h1>Galeria</h1>
 
             <ul class="nav">
-
+                
                 <?php for ($i = 0; $i < sizeof($gallery->categories); $i++) { ?>
+                    
+                    <?php if ($i == 0): ?>
+
+                    <li>
+                        <a href="?page=gallery" class="btn-categories <?php if ($category == NULL) echo " active" ?>" data-category="<?php echo "NULL" ?>">
+                            Wszystkie
+                        </a>
+                    </li>
+
+                    <?php endif; ?>
 
                     <li>
                         <a href="?page=gallery&category=<?php echo $gallery->categories[$i]; ?>" class="btn-categories <?php if ($category == $gallery->categories[$i]) echo " active" ?>" data-category="<?php echo $gallery->categories[$i]; ?>"><?php echo $gallery->categories[$i]; ?></a>
@@ -22,13 +32,13 @@
 
         </header>
 
-        <div id="grid">
+        <div class="grid-container">
 
             <?php 
 
-            for ($i = 0; $i < $gallery->length; $i++) {
+            for ($i = 0; $i < $gallery->length; $i++):
 
-                if ($category == NULL) {
+                if ($category == NULL):
 
                 ?>
 
@@ -48,9 +58,9 @@
     
                 <?php
 
-                } else {
+                else:
 
-                    if (in_array($category, $gallery->items[$i]->categories)) {
+                    if (in_array($category, $gallery->items[$i]->categories)):
 
                     ?>
                         
@@ -70,11 +80,11 @@
         
                     <?php
 
-                    }
+                    endif;
 
-                }
+                endif;
 
-            }
+            endfor;
 
             ?>
             

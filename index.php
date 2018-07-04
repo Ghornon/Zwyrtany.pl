@@ -33,7 +33,7 @@ if (isset($_GET['page'])) {
             <nav class="hamburger"><label for="btn-sidebar"><i class="fa fa-bars" aria-hidden="true"></i></label></nav>
 
             <?php
-
+            
                 if (file_exists($page))
                     require_once $page;
                 else 
@@ -41,15 +41,15 @@ if (isset($_GET['page'])) {
 
             ?>
 
-            <?php if ($page != './templates/gallery.php') { ?>
+            <?php if ($page != './templates/gallery.php'): ?>
 
-            <footer id="footer">
+                <footer id="footer">
 
-                <a href=".">Zwyrtany.pl </a> 2018 &copy; All rights reserved!
-            
-            </footer>
+                    <a href=".">Zwyrtany.pl </a> 2018 &copy; All rights reserved!
+                
+                </footer>
 
-            <?php } ?>
+            <?php endif; ?>
 
         </main>
 
